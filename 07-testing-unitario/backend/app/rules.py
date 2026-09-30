@@ -40,3 +40,6 @@ def can_edit(owner_id: int, user_id: int, role: str) -> bool:
     un admin puede sobre cualquier documento de su empresa.
     """
     return owner_id == user_id or role == "admin"
+
+def can_publish(owner_id: int, user_id: int, role: str) -> bool:
+    return owner_id == user_id or role == "admin"
