@@ -10,6 +10,8 @@ Reglas:
   - Corré `uv run pytest` después de cada uno hasta verlo verde.
 """
 
+import pytest
+
 from app.rules import (
     can_change_role,
     can_delete,
@@ -44,13 +46,13 @@ def test_can_manage_users_solo_admin():
     assert can_manage_users("viewer") is False
 
 
-def test_can_delete_solo_admin():
-    # TODO: assert que can_delete("admin") es True
-    # TODO: assert que can_delete("editor") es False
-    # assert False, "TODO: completá este test"
-    assert can_delete("admin") is True
-    assert can_delete("editor") is False
-
+@pytest.mark.parametrize("role,esperado", [
+    ("admin", True),
+    ("editor", False),
+    ("viewer", False),
+])
+def test_can_delete_por_rol(role, esperado):
+    assert can_delete(role) is esperado
 
 def test_can_edit_dueño_puede():
     # TODO: el dueño (owner_id == user_id) siempre puede editar lo suyo
@@ -63,3 +65,11 @@ def test_can_edit_editor_no_puede_sobre_ajeno():
     # assert False, "TODO: completá este test"
     assert can_edit(owner_id=1, user_id=2, role="editor") is False
     
+def test_scope_allows_write_espacio():
+    assert scope_allows_write("write ") is True
+
+def test_scope_allows_write_mayus():
+    assert scope_allows_write("WRITE") is True
+
+def test_can_edit_duenio_es_viewer():
+    assert can_edit(owner_id=1, user_id=1, role="viewer") is True

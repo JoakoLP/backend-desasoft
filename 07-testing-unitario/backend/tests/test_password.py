@@ -37,3 +37,13 @@ def test_is_strong_true_cuando_no_hay_errores():
 
 def test_is_strong_false_cuando_hay_errores():
     assert is_strong("corta") is False
+
+def test_validate_password_vacia():
+    errores = validate_password("")
+    assert len(errores) == 3
+    assert is_strong("") is False
+
+def test_validate_password_solo_numeros():
+    errores = validate_password("12345678")
+    assert len(errores) == 2
+    assert is_strong("12345678") is False

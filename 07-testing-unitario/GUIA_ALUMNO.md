@@ -134,22 +134,25 @@ Los buenos testers no testean solo el "camino feliz". Buscá casos raros:
 
 1. En `scope_allows_write`: ¿qué pasa con `"write "` (espacio al final)?
    ¿Y con `"WRITE"` (mayúscula)? ¿Debería importar? Escribí el test y decidí.
+        RTA: Con `"write "` no funciona. Con `"WRITE"` tampoco.
 2. En `validate_password` (`app/password.py`): ¿qué pasa con `""` (vacía)?
    ¿Y con una contraseña que tiene solo números? Escribí esos tests.
+        RTA: Si es vacía, debería devolver 3 errores. Si tiene sólo números, debería devolvrer 2 errores (mayus y cant de caracteres).
 3. En `can_edit`: ¿qué pasa si `owner_id == user_id` **y** el rol es `"viewer"`
    (el dueño es viewer)? Según la regla, ¿puede editar lo suyo? Escribí el test
    y verificá que la función haga lo que la matriz del 06 dice.
+        RTA: La función devuelve True porque evalua primero `owner_id == user_id`.
 
 ---
 
 ## Checklist de cierre (mostralo al docente)
 
-- [ ] Corro `uv run pytest` y **todos los tests pasan** (sin `F`).
-- [ ] Sé explicar las **tres fases de AAA** sobre un test mío.
-- [ ] Escribí al menos **un test nuevo** en la Fase 2 (TDD).
-- [ ] Usé `parametrize` al menos una vez (Fase 3).
-- [ ] Testeé al menos **un caso de borde** (Fase 4).
-- [ ] Sé decir por qué **no hay postgres** en este módulo.
+- [ x ] Corro `uv run pytest` y **todos los tests pasan** (sin `F`).
+- [ x ] Sé explicar las **tres fases de AAA** sobre un test mío.
+- [ x ] Escribí al menos **un test nuevo** en la Fase 2 (TDD).
+- [ x ] Usé `parametrize` al menos una vez (Fase 3).
+- [ x ] Testeé al menos **un caso de borde** (Fase 4).
+- [ x ] Sé decir por qué **no hay postgres** en este módulo.
 
 ---
 
